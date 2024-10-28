@@ -14,6 +14,40 @@ st.set_page_config(page_title="Loan Risk Prediction Analysis", layout="wide")
 
 # Title
 st.title("Prediccion y analisis UNAB")
+st.title("Análisis de Distribución de Características de Préstamos")
+
+# Descripción general
+
+# Detalles de cada característica
+analisis_texto = """
+- **credit.policy**: La mayoría de los datos está en el valor 1, lo que indica que la mayoría de los préstamos cumplen con la política de crédito, mientras que una fracción menor no cumple (valor 0).
+
+- **int.rate**: Las tasas de interés parecen tener una distribución asimétrica con una concentración entre 10% y 15%. Esto sugiere que la mayoría de los préstamos tienen una tasa de interés en este rango.
+
+- **installment**: La mayoría de los pagos mensuales de los préstamos están concentrados por debajo de 500, con una caída gradual en la cantidad de préstamos conforme el valor aumenta.
+
+- **log.annual.inc**: La mayoría de los ingresos anuales (en escala logarítmica) se encuentran entre 10 y 12, lo que indica que la mayoría de los prestatarios tienen ingresos anuales moderados.
+
+- **dti**: La razón de deuda a ingreso (dti) muestra una distribución simétrica alrededor de valores menores a 20, con algunos préstamos con valores más altos.
+
+- **fico**: La puntuación FICO está bien distribuida entre 600 y 850, con una concentración en el rango de 700 a 800, lo que indica prestatarios con un buen historial crediticio en general.
+
+- **days.with.cr.line**: La mayoría de los prestatarios tienen un historial crediticio de varios miles de días (alrededor de 5,000 a 10,000 días), lo que sugiere un largo tiempo con acceso a crédito.
+
+- **revol.bal**: Los saldos renovables tienden a ser bajos en su mayoría, aunque algunos tienen saldos elevados.
+
+- **revol.util**: La utilización del crédito renovable (en porcentaje) muestra una tendencia a acumularse en valores menores, lo cual sugiere que los prestatarios no suelen utilizar una gran parte de su crédito disponible.
+
+- **inq.last.6mths**: La mayoría de los prestatarios tienen pocas consultas de crédito en los últimos 6 meses, con una mayor frecuencia en valores bajos.
+
+- **delinq.2yrs**: La mayoría de los prestatarios tienen pocos o ningún atraso en pagos en los últimos 2 años, lo cual sugiere un buen cumplimiento en su historial reciente.
+
+- **pub.rec**: La mayoría de los prestatarios tienen pocos o ningún registro público de incumplimiento, lo que sugiere un historial limpio de problemas financieros.
+
+- **not.fully.paid**: La variable objetivo muestra que la mayoría de los préstamos fueron pagados completamente (valor 0), mientras que una fracción menor no lo fue (valor 1).
+
+En conjunto, el analisis sugiere que los prestatarios en este conjunto de datos suelen cumplir con los términos del préstamo (como se observa en "not.fully.paid" y "delinq.2yrs"), tienen un historial crediticio razonablemente bueno ("fico" y "days.with.cr.line") y generalmente utilizan su crédito disponible de manera conservadora ("revol.util").
+"""
 
 @st.cache_data
 def process_uploaded_file(uploaded_file):
@@ -196,6 +230,8 @@ def main():
             plt.ylabel('True Label')
             plt.xlabel('Predicted Label')
             st.pyplot(fig)
+        st.write(analisis_texto)
+        st.image("graficos.png", width=480)  # Ajusta la ruta y el ancho según necesites
 
 if __name__ == "__main__":
     main()
