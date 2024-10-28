@@ -180,7 +180,7 @@ def display_binary_predictor(data, model, selected_features):
             st.progress(confidence/100, text=f"Confidence: {confidence:.1f}%")
 
 def main():
-    uploaded_file = st.file_uploader("Upload your CSV file", type=['csv'])
+    uploaded_file = st.file_uploader("Sube tu CSV file", type=['csv'])
     
     data = process_uploaded_file(uploaded_file)
     st.image("parametros.jpg", width=480)  # Ajusta la ruta y el ancho según necesites
