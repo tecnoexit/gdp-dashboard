@@ -151,6 +151,8 @@ def main():
     data = process_uploaded_file(uploaded_file)
     st.image("parametros.jpg", width=480)  # Ajusta la ruta y el ancho según necesites
     st.write("Bienvenido a la plataforma de analisis de riesgo, se adjunta la traduccion de las caracteristicas")
+    st.write("Alvaro Ponce, Agustin Almiron, Gonzalo Delfino")
+
     if data is not None:
         st.subheader("Datos ingresados")
         st.dataframe(data.head())
