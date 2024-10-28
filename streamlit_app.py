@@ -14,7 +14,7 @@ st.set_page_config(page_title="Loan Risk Prediction Analysis", layout="wide")
 
 # Title
 st.title("Prediccion y analisis UNAB")
-st.title("Análisis de Distribución de Características de Préstamos")
+st.title("Análisis Distribución y Características de Préstamos")
 
 # Descripción general
 
