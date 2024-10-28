@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Loan Risk Prediction Analysis", layout="wide")
 
 # Title
-st.title("Loan Risk Prediction Analysis")
+st.title("Prediccion y analisis UNAB")
 
 @st.cache_data
 def process_uploaded_file(uploaded_file):
