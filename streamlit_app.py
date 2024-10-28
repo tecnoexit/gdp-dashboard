@@ -75,8 +75,8 @@ def train_model(df, selected_features):
     return model, X_train, X_test, y_train, y_test, y_pred
 
 def display_binary_predictor(data, model, selected_features):
-    st.subheader("Quick Yes/No Risk Predictor")
-    st.write("Enter client information for the top 4 risk factors:")
+    st.subheader("Predictor Inmediato de Riesgo")
+    st.write("Ingrese las 4 caracterismas importantes del nuevo Cliente:")
     
     col1, col2 = st.columns(2)
     input_data = {}
@@ -124,7 +124,7 @@ def display_binary_predictor(data, model, selected_features):
                         step=0.1
                     )
         
-        submitted = st.form_submit_button("Predict Risk (Yes/No)")
+        submitted = st.form_submit_button("Otorgar Prestamo (Yes/No)")
     
     if submitted:
         input_df = pd.DataFrame([input_data])
@@ -132,16 +132,16 @@ def display_binary_predictor(data, model, selected_features):
         prediction = model.predict(input_df_processed)
         prediction_proba = model.predict_proba(input_df_processed)
         
-        st.markdown("### Risk Assessment Result")
+        st.markdown("### Analisis y Resultado")
         col1, col2, col3 = st.columns([1, 2, 1])
         
         with col2:
             if prediction[0] == 0:
-                st.success("✅ NO RISK - Loan Recommended")
+                st.success("✅ NO RISK - Prestamo Recommended")
             else:
-                st.error("⚠️ RISK DETECTED - Loan Not Recommended")
+                st.error("⚠️ RISK DETECTED - Prestamo Not Recommended")
             
-            st.write("#### Confidence Level")
+            st.write("#### Nivel de Confianza del modelo")
             confidence = max(prediction_proba[0]) * 100
             st.progress(confidence/100, text=f"Confidence: {confidence:.1f}%")
 
@@ -149,9 +149,10 @@ def main():
     uploaded_file = st.file_uploader("Upload your CSV file", type=['csv'])
     
     data = process_uploaded_file(uploaded_file)
-    
+    st.image("parametros.jpg", width=480)  # Ajusta la ruta y el ancho según necesites
+    st.write("Bienvenido a la plataforma de analisis de riesgo, se adjunta la traduccion de las caracteristicas")
     if data is not None:
-        st.subheader("Raw Data Preview")
+        st.subheader("Datos ingresados")
         st.dataframe(data.head())
         
         X = data.drop('not.fully.paid', axis=1)
@@ -161,7 +162,7 @@ def main():
         df = preprocess_data(data, selected_features, is_training=True)
         model, X_train, X_test, y_train, y_test, y_pred = train_model(df, selected_features)
         
-        st.subheader("Top 4 Most Important Features")
+        st.subheader("Top 4 Caracteristicas mas importantes")
         feature_importance = pd.DataFrame({
             'Feature': selected_features,
             'Importance Score': feature_scores
@@ -169,7 +170,7 @@ def main():
         
         fig, ax = plt.subplots(figsize=(10, 4))
         sns.barplot(data=feature_importance, x='Importance Score', y='Feature')
-        plt.title('Feature Importance Analysis')
+        plt.title('Analisis caracteristicas importantes')
         st.pyplot(fig)
         
         st.markdown("---")
